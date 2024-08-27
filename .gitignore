@@ -7,3 +7,10 @@
 *.so
 *.dll
 *.dsYM
+# Ignore executables
+# To add executables to this file, run:
+# find . -path './.git' -prune -o -type f -perm -u=x -print >> .gitignore
+basics/hello_world/hello_world
+basics/triangle_area/triangle_area
+basics/bitwise_operations/bitwise_operations
+basics/overflow/overflow
