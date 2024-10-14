@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -44,6 +45,23 @@ int main()
   // num doesn't hold a copy of the element from numbers but rather refers directly to the element in the container.
   for(int &num : numbers)
     cout << num << " at " << &num << endl;
+
+  cout << endl;
+  cout << "Looping through a multidimensional vector: " << endl;
+
+  vector <vector <int>> matrix {
+    {1,2,3},
+    {4,5,6},
+    {7,8,9}
+  };
+
+  for(auto row : matrix)
+  {
+    for (int element : row)
+      cout << element << " ";
+
+    cout << endl;
+  }
 
   return 0;
 }
