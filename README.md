@@ -1,5 +1,17 @@
-To identify executables in the repository and add them to the .gitignore file, run
+Print executables to be removed:
 
 ```
-find . -path './.git' -prune -o -type f -perm -u=x -print >> .gitignore
+find . -type d -name ".git" -prune -o -type f -executable -print
+```
+
+Remove executables:
+
+```
+find . -type d -name ".git" -prune -o -type f -executable -exec rm -v {} +
+```
+
+Example of how to compile:
+
+```
+g++ -o main main.cpp
 ```
