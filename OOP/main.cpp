@@ -5,9 +5,12 @@ using namespace std;
 
 int main()
 {
-  Car myCar;
+  Car myCar{"Toyota"};
 
-  cout << myCar.getBrand() << endl;
+  cout << "myCar.getBrand() = " << myCar.getBrand() << endl;
+  cout << "After modifying brand..." << endl;
+  myCar.setBrand("Ford");
+  cout << "myCar.getBrand() = " << myCar.getBrand() << endl;
 
   return 0;
 }
