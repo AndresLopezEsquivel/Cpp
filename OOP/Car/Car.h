@@ -8,6 +8,8 @@ class Car
   private:
 
   std::string brand;
+  std::string model;
+  int year;
 
   public:
   /*
@@ -18,7 +20,14 @@ class Car
     2. Adding `const` ensures that the constructor cannot modify the original string argument.
     3. Allows passing temporary (rvalue) objects like `Car("Toyota")` because rvalues can bind to `const` references.
   */
-  Car(const std::string &brand);
+
+ /*
+  Use pass by value for small, simple types like int, float, char.
+  Use pass by reference for large or complex types like std::string to avoid unnecessary copying.
+  */
+
+  Car(const std::string &brand = "Unknown", const std::string &model = "Unknown", int year = 0);
+  Car(const std::string &brand, int year);
   /*
     Key Insights about const methods:
     1. This method guarantees it does not modify the state of the object.
@@ -27,7 +36,10 @@ class Car
     4. The compiler enforces immutability of the object for this method.
   */
   std::string getBrand() const;
+  std::string getDetails() const;
+
   void setBrand(const std::string &newBrand);
+
 };
 
 #endif

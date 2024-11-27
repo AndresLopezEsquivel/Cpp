@@ -9,7 +9,14 @@
         this->brand = brand; // Calls the copy constructor of std::string after default construction
       }
 */
-Car::Car(const std::string &brand) : brand{brand} {};
+Car::Car(const std::string &brand,
+         const std::string &model,
+         int year) :
+         brand{brand},
+         model{model},
+         year{year} {};
+
+Car::Car(const std::string &brand, int year) : Car(brand, "unknown", year) {};
 
 std::string Car::getBrand() const
 {
@@ -19,4 +26,9 @@ std::string Car::getBrand() const
 void Car::setBrand(const std::string &newBrand)
 {
   brand = newBrand;
+}
+
+std::string Car::getDetails() const
+{
+  return "Brand: " + brand + ", Model: " + model + ", Year: " + std::to_string(year);
 }
