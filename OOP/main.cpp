@@ -17,5 +17,11 @@ int main()
   Car car3("Ford", "Mustang", 1969);
   std::cout << car3.getDetails() << std::endl;
 
+  cout << endl << "After modifying car3..." << endl;
+
+  car3.setModel("GT500");
+  car3.setYear(2022);
+  cout << endl << car3.getDetails() << endl;
+
   return 0;
 }

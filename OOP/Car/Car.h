@@ -35,10 +35,18 @@ class Car
     3. If 'const' is omitted, the method cannot be called on const objects, reducing usability.
     4. The compiler enforces immutability of the object for this method.
   */
-  std::string getBrand() const;
   std::string getDetails() const;
 
   void setBrand(const std::string &newBrand);
+  std::string getBrand() const;
+
+  void setModel(const std::string &newModel);
+  std::string getModel() const;
+
+  void setYear(int newYear);
+  int getYear() const;
+
+
 
 };
 

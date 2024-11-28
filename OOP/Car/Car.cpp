@@ -18,14 +18,34 @@ Car::Car(const std::string &brand,
 
 Car::Car(const std::string &brand, int year) : Car(brand, "unknown", year) {};
 
+void Car::setBrand(const std::string &newBrand)
+{
+  brand = newBrand;
+}
+
 std::string Car::getBrand() const
 {
   return brand;
 }
 
-void Car::setBrand(const std::string &newBrand)
+void Car::setModel(const std::string &newModel)
 {
-  brand = newBrand;
+  model = newModel;
+}
+
+std::string Car::getModel() const
+{
+  return model;
+}
+
+void Car::setYear(int newYear)
+{
+  year = newYear;
+}
+
+int Car::getYear() const
+{
+  return year;
 }
 
 std::string Car::getDetails() const
