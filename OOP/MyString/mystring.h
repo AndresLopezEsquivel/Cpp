@@ -10,9 +10,9 @@ class MyString
   MyString();
   MyString(const char *str);
   MyString(const MyString &source);
+  MyString(MyString &&source);
   ~MyString();
-  char *get_str() const;
-
+  const char *get_str() const;
 };
 
 #endif

@@ -17,5 +17,8 @@ int main()
   MyString s4(s2);
   cout << "s4: " << s4.get_str() << endl;
 
+  MyString s5(std::move(s2));
+  cout << "s5: " << s5.get_str() << endl;
+
   return 0;
 }

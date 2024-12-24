@@ -31,6 +31,16 @@ MyString::MyString(const MyString &source) : str(nullptr) // Copy constructor - 
   strcpy(str, source.str);
 }
 
-MyString::~MyString() { delete [] str; }
+MyString::MyString(MyString &&source) : str(source.str) // Move constructor
+{
+  std::cout << std::endl << "Inside MyString(const MyString &&source)" << std::endl;
+  source.str = nullptr;
+}
 
-char *MyString::get_str() const { return str; }
+MyString::~MyString()
+{
+  std::cout << std::endl << "Inside ~MyString()" << std::endl;
+  delete [] str;
+}
+
+const char *MyString::get_str() const { return str; }
