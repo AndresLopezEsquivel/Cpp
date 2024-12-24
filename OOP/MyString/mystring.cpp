@@ -20,7 +20,15 @@ MyString::MyString(const char *str) : str(nullptr)
 
   size_t str_len = strlen(str);
   this->str = new char[str_len + 1]; // +1 to consider \0
-  strncpy(this->str, str, str_len);
+  strcpy(this->str, str);
+}
+
+MyString::MyString(const MyString &source) : str(nullptr) // Copy constructor - Deep copy
+{
+  std::cout << std::endl << "Inside MyString(const MyString &source)" << std::endl;
+  size_t str_len = strlen(source.str);
+  str = new char[str_len + 1]; // +1 to conside \0
+  strcpy(str, source.str);
 }
 
 MyString::~MyString() { delete [] str; }

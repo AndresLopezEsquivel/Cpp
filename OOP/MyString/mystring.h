@@ -9,6 +9,7 @@ class MyString
   public:
   MyString();
   MyString(const char *str);
+  MyString(const MyString &source);
   ~MyString();
   char *get_str() const;
 

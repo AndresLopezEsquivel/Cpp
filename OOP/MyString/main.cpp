@@ -14,5 +14,8 @@ int main()
   MyString s3(nullptr);
   cout << "s3: " << s3.get_str() << endl;
 
+  MyString s4(s2);
+  cout << "s4: " << s4.get_str() << endl;
+
   return 0;
 }
