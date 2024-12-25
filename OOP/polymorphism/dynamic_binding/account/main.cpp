@@ -1,10 +1,22 @@
 #include <iostream>
 
-class Account
+class I_Printable // Interface class
+{
+  // C++ does not have a keyword for interfaces.
+  // An interface class is an abstract class (it only has pure virtual functions).
+  // Classes that inherit from an interface class must implement all the pure virtual functions.
+  // The purpose of an interface class is to provide common functionality to derived classes.
+  friend std::ostream &operator<<(std::ostream &os, const I_Printable &obj);
+  public:
+  virtual void print(std::ostream &os) const = 0;
+};
+
+class Account : public I_Printable
 {
   public:
   virtual ~Account();
   virtual void withdraw(double amount);
+  virtual void print(std::ostream &os) const override;
 };
 
 class Checking : public Account
@@ -15,6 +27,7 @@ class Checking : public Account
   // In derived classes, the virtual keyword is a good practice,
   // whereas the override keyword is useful for ensuring that the method signature matches the base class method signature.
   virtual void withdraw(double amount) override;
+  virtual void print(std::ostream &os) const override;
 };
 
 class Savings : public Account
@@ -22,6 +35,7 @@ class Savings : public Account
   public:
   virtual ~Savings();
   virtual void withdraw(double amount) override;
+  virtual void print(std::ostream &os) const override;
 };
 
 class Trust : public Account
@@ -29,6 +43,7 @@ class Trust : public Account
   public:
   virtual ~Trust();
   virtual void withdraw(double amount) override;
+  virtual void print(std::ostream &os) const override;
 };
 
 Account::~Account()
@@ -71,9 +86,35 @@ void Trust::withdraw(double amount)
   std::cout << std::endl << "In Trust::withdraw" << std::endl;
 }
 
+void Account::print(std::ostream &os) const
+{
+  os << "In Account::print";
+};
+
+void Checking::print(std::ostream &os) const
+{
+  os << "In Checking::print";
+};
+
+void Savings::print(std::ostream &os) const
+{
+  os << "In Savings::print";
+};
+
+void Trust::print(std::ostream &os) const
+{
+  os << "In Trust::print";
+};
+
 void do_withdraw(Account& account, double amount)
 {
   account.withdraw(amount);
+}
+
+std::ostream &operator<<(std::ostream &os, const I_Printable &obj)
+{
+  obj.print(os);
+  return os;
 }
 
 int main()
@@ -109,6 +150,16 @@ int main()
   do_withdraw(a, 1000);
   // Thanks to dynamic binding, the output is:
   // In Trust::withdraw
+
+  std::cout << std::endl << "== Print using operator<< ==" << std::endl;
+
+  for(size_t i = 0;  i < 4; i++)
+    std::cout << std::endl << *accounts[i] << std::endl;
+    // Thanks to dynamic binding, the output is:
+    // In Account::print
+    // In Checking::print
+    // In Savings::print
+    // In Trust::print
 
   std::cout << std::endl << "== Clean up ==" << std::endl;
 
