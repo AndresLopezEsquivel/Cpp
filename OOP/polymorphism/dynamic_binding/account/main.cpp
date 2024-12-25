@@ -11,8 +11,9 @@ class Checking : public Account
 {
   public:
   virtual ~Checking();
-  // The override keyword ensures that the function siggnature matches the base class function signature.
-  // If it doesn't, a commpile-time error will be generated.
+  // Neither virtual nor override keywords are required for the derived class method.
+  // In derived classes, the virtual keyword is a good practice,
+  // whereas the override keyword is useful for ensuring that the method signature matches the base class method signature.
   virtual void withdraw(double amount) override;
 };
 
@@ -106,6 +107,8 @@ int main()
   Trust t;
   Account& a = t;
   do_withdraw(a, 1000);
+  // Thanks to dynamic binding, the output is:
+  // In Trust::withdraw
 
   std::cout << std::endl << "== Clean up ==" << std::endl;
 
