@@ -1,0 +1,7 @@
+Andrew 25 1.66
+John 30 1.75
+Anna 28 1.70
+Olga 35 1.60
+Ivan 40 1.80
+Lena 20 1.55
+Qwerty 45 1.90
