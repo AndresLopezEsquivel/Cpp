@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <deque>
+#include <map>
 #include <numeric>
 
 template<class T>
@@ -12,12 +13,26 @@ void print(const std::vector<T> &container)
   std::cout << std::endl;
 }
 
+template<class key, class val_type>
+void print(const std::map<key,std::vector<val_type>> &container)
+{
+  for(auto it = container.begin(); it != container.end(); it++)
+  {
+    std::cout << it->first << " : ";
+    print<val_type>(it->second);
+    std::cout << std::endl;
+  }
+}
+
 int main()
 {
+  // == CHALLENGE 1 ==
+
+  std::cout << "== CHALLENGE 1 ==" << std::endl;
+
   // Create a std::vector<int> and fill it with the first 10 positive integers.
   std::vector<int> numbers(10);
   std::iota(numbers.begin(), numbers.end(), 1);;
-
 
   // Use iterators to print all elements of the vector
   std::cout << "numbers: ";
@@ -54,6 +69,31 @@ int main()
   // Output: 1 4 3 16 5 36 7 64 9 100
 
   std::cout << std::endl;
+
+  // == CHALLENGE 2 ==
+
+  // 1. Create a std::map<int, std::vector<int>> where the key is an integer and the value is a vector of integers.
+  // Populate the map such that:
+  // (a) Keys are integers from 1 to 5.
+  // (b) Each value (vector) contains the first 5 multiples of its corresponding key.
+
+  std::cout << "== CHALLENGE 2 ==" << std::endl;
+
+  std::map<int, std::vector<int>> m;
+  std::vector<int> multiples;
+
+  for(int i = 1; i < 6; i++)
+  {
+    for(int j = 1; j < 6; j++)
+    {
+      multiples.push_back(i * j);
+    }
+
+    m[i] = multiples;
+    multiples.clear();
+  }
+
+  print<int, int>(m);
 
   return 0;
 }
