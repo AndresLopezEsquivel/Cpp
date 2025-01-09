@@ -95,5 +95,14 @@ int main()
 
   print<int, int>(m);
 
+
+  // 2. Write lambda functions to:
+  // (a) Count the total number of elements across all vectors that are greater than 10
+  int greater_than_10 = std::accumulate(m.begin(), m.end(), 0, [](int acc, std::pair<int, std::vector<int>> entry){
+    return acc + std::count_if(entry.second.begin(), entry.second.end(), [](int x) { return x > 10; });
+  });
+
+  std::cout << "greater_than_10: " << greater_than_10 << std::endl;
+
   return 0;
 }
