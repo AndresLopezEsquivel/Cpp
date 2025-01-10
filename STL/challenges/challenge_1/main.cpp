@@ -3,7 +3,37 @@
 #include <vector>
 #include <deque>
 #include <map>
+#include <memory>
 #include <numeric>
+#include <set>
+
+class Processor
+{
+  public:
+  virtual void process() = 0;
+  ~Processor() { std::cout << "In ~Processor()" << std::endl; }
+};
+
+class MapProcessor : public Processor
+{
+  private:
+  const std::map<int, std::vector<int>> &m;
+  public:
+  MapProcessor(const std::map<int, std::vector<int>> &m) : m(m) {};
+  ~MapProcessor() { std::cout << "In ~MapProcessor()" << std::endl; }
+  virtual void process() override
+  {
+    for(const auto& entry : m)
+    {
+      std::cout << entry.first << " : ";
+      for(const auto& value : entry.second)
+      {
+        std::cout << value << " ";
+      }
+      std::cout << std::endl;
+    }
+  }
+};
 
 template<class T>
 void print(const std::vector<T> &container)
@@ -102,7 +132,50 @@ int main()
     return acc + std::count_if(entry.second.begin(), entry.second.end(), [](int x) { return x > 10; });
   });
 
-  std::cout << "greater_than_10: " << greater_than_10 << std::endl;
+  std::cout << "greater_than_10: " << greater_than_10 << std::endl; // 8
+
+  // (b) Find the sum of all elements in the map
+  int map_sum {0};
+
+  std::for_each(m.begin(), m.end(), [&map_sum](std::pair<int, std::vector<int>> entry){
+    map_sum += std::accumulate(entry.second.begin(), entry.second.end(), 0);
+  });
+
+  std::cout << "map_sum: " << map_sum << std::endl; // 255
+
+  // 3. Create a std::shared_ptr<std::vector<int>> to store all unique elements from all vectors in the map.
+  // Note: Use std::set to identify unique elements before adding them to the shared_ptr vector.
+
+  std::set<int> unique_numbers;
+
+  std::for_each(m.begin(), m.end(), [&unique_numbers](const std::pair<int, std::vector<int>>& pair){
+    std::for_each(pair.second.begin(), pair.second.end(), [&unique_numbers](const int number){
+      unique_numbers.insert(number);
+    });
+  });
+
+  std::cout << "{ " << *unique_numbers.begin();
+  std::for_each(next(unique_numbers.begin()), unique_numbers.end(), [](const int number){
+    std::cout << ", " << number;
+  });
+  std::cout << " }" << std::endl; // { 1, 2, 3, 4, 5, 6, 8, 9, 10, 12, 15, 16, 20, 25 }
+
+  std::shared_ptr<std::vector<int>> unique_numbers_vec = std::make_shared<std::vector<int>>();
+
+  for(const auto& number : unique_numbers)
+  {
+    unique_numbers_vec->push_back(number);
+  }
+
+  print<int>(*unique_numbers_vec); // 1 2 3 4 5 6 8 9 10 12 15 16 20 25
+
+  // 4. Implement an abstract class Processor with a pure virtual function process(). Derive a class MapProcessor from it that:
+  // (a) Takes the map as input.
+  // (b) Implements process() to print all keys and their corresponding sorted vector values.
+
+  std::unique_ptr<MapProcessor> map_processor {new MapProcessor(m)};
+
+  map_processor->process();
 
   return 0;
 }
