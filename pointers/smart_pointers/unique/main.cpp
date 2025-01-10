@@ -129,7 +129,7 @@ int main()
 
   {
     // Sames as std::unique_ptr<Test> t {new Test(-500)};
-    std::unique_ptr<Test> t = std::make_unique<Test>();// Output: In Test::Test(int data)
+    std::unique_ptr<Test> t = std::make_unique<Test>(-500);// Output: In Test::Test(int data)
     std::cout << std::endl << t << std::endl; // Output: a memory address (i.e. 0x7f8e1b402010)
     std::cout << std::endl << *t << std::endl; // Output: -500 <- operator<< was overloaded
   } // When exiting the scope, prints In Test::~Test(). Pointer t is automatically deleted.
@@ -138,7 +138,7 @@ int main()
 
   {
     // Same as std::unique_ptr<Person> p {new Employee("John Doe", 30, "Google", 100000)};
-    std::unique_ptr<Employee> e = std::make_unique<Employee>("John Doe", 30, "Google", 100000);
+    std::unique_ptr<Person> e = std::make_unique<Employee>("John Doe", 30, "Google", 100000);
     // Output:
     // In Person::Person(str,short)
     // In Employee::Employee(str,short,str,int)
